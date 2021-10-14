@@ -1,0 +1,82 @@
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand">Category list</a>
+    <form class="d-flex">
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success" type="submit">Search</button> 
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add
+      </button>
+      <button type="button" class="btn btn-secondary" >Logout</button>
+    
+
+    </form>
+  </div>
+</nav>
+<br />
+
+<br/><br/> 
+<div class="container">
+  <!-- <div id="category-table" #category-table> -->
+  <table class="table table-striped table-hover" id="category">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Creation date</th>
+        <th scope="col">Updated date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of category" (click)="goToProduct(i.id)">
+        <th scope="row">{{ i.id }}</th>
+        <td>{{ i.name }}</td>
+        <td>{{ i.creationdate | date }}</td>
+        <td>{{ i.updateddate | date }}</td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="deleteCategory(i.id)">Delete</button>
+          
+          <button type="button" class="btn btn-warning" (click)="open(i.id)"> Edit </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+<div class="col-md-4 text-right">
+  <button class="btn btn-success btn-block" (click)="makePdf()">Download PDF</button>
+  <button type="button" class="btn btn-primary" (click)="exportexcel()">Export</button>
+</div>
+
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add a new category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+        <div class="input-group input-group-lg">
+          <span class="input-group-text" id="categ_name">Category name</span>
+          <input type="text"  name="catName" [(ngModel)]="catName" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addCategory()">Add to category list</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
