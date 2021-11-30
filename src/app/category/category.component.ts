@@ -3,10 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from '../models/category';
 import { CategoryService } from '../services/category.service';
 import jsPDF from 'jspdf';
-import { TokenStorageService } from '../services/token-storage.service';
 
-3
-4
+import { FormsModule } from '@angular/forms';
+
  
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
@@ -15,6 +14,7 @@ import 'jspdf-autotable';
 import autoTable from 'jspdf-autotable';
 
 import * as XLSX from 'xlsx'; 
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-category',
@@ -26,12 +26,11 @@ category?: Category[];
 catName:string = "";
 id_cat:any
 fileName= 'ExcelSheet.xlsx'; 
-tokenStorageService?: TokenStorageService;
  @ViewChild('content',{static: false}) el!: ElementRef;
   data: any;
   
 
-  constructor(private categoryService: CategoryService, private router: Router,private router2:ActivatedRoute) { }
+  constructor(private categoryService: CategoryService, private router: Router,private router2:ActivatedRoute,private keycloakService:KeycloakService) { }
 
   ngOnInit(): void {
     this.id_cat = this.router2.snapshot.params.id_cat ; 
@@ -89,7 +88,12 @@ exportexcel(): void
 			
     }
 
+    logout(): void {
+      this.keycloakService.logout('http://localhost:4200/category');
+    }
+
 }
+
 
 
 
